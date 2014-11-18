@@ -34,5 +34,29 @@ namespace VSTARegistrationClear.Properties {
                 this["Debug"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("HKEY_CURRENT_USER\\Software\\Microsoft\\VSTA\\Solutions")]
+        public string VSTARegistryKey {
+            get {
+                return ((string)(this["VSTARegistryKey"]));
+            }
+            set {
+                this["VSTARegistryKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Url")]
+        public string VSTAValueName {
+            get {
+                return ((string)(this["VSTAValueName"]));
+            }
+            set {
+                this["VSTAValueName"] = value;
+            }
+        }
     }
 }

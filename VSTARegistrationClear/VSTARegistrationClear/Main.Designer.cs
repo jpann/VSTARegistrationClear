@@ -34,10 +34,10 @@
             this.btnRegistryBackup = new System.Windows.Forms.Button();
             this.btnRegistryDelete = new System.Windows.Forms.Button();
             this.lstRegistry = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAbout = new System.Windows.Forms.ToolStripButton();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStrip.SuspendLayout();
             this.grpRegistry.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -78,6 +78,7 @@
             // btnRegistryBackup
             // 
             this.btnRegistryBackup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRegistryBackup.Enabled = false;
             this.btnRegistryBackup.Location = new System.Drawing.Point(821, 218);
             this.btnRegistryBackup.Name = "btnRegistryBackup";
             this.btnRegistryBackup.Size = new System.Drawing.Size(75, 23);
@@ -104,8 +105,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lstRegistry.CheckBoxes = true;
             this.lstRegistry.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
+            this.columnHeader2,
+            this.columnHeader1});
             this.lstRegistry.FullRowSelect = true;
             this.lstRegistry.GridLines = true;
             this.lstRegistry.Location = new System.Drawing.Point(16, 19);
@@ -115,15 +116,10 @@
             this.lstRegistry.UseCompatibleStateImageBehavior = false;
             this.lstRegistry.View = System.Windows.Forms.View.Details;
             // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Name";
-            this.columnHeader1.Width = 292;
-            // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Full Path";
-            this.columnHeader2.Width = 689;
+            this.columnHeader2.Width = 443;
             // 
             // toolStrip1
             // 
@@ -143,6 +139,11 @@
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(23, 22);
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Value";
+            this.columnHeader1.Width = 403;
             // 
             // Main
             // 
@@ -174,10 +175,10 @@
         private System.Windows.Forms.Button btnRegistryBackup;
         private System.Windows.Forms.Button btnRegistryDelete;
         private System.Windows.Forms.ListView lstRegistry;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btnAbout;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }
 
