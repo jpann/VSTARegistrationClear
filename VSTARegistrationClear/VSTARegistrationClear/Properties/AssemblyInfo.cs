@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("VSTARegistrationClear")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("VSTA Registration Clear")]
+[assembly: AssemblyDescription("Simple utility to help resolve 'AddInAlreadyInstalledException' exceptions during a ClickOnce application deployment.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Jonathan Panning")]
 [assembly: AssemblyProduct("VSTARegistrationClear")]
 [assembly: AssemblyCopyright("Copyright © 2014")]
 [assembly: AssemblyTrademark("")]
