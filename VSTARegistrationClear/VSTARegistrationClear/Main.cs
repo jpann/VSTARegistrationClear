@@ -168,15 +168,29 @@ namespace VSTARegistrationClear
         {
             try
             {
-                string savePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), Path.GetFileNameWithoutExtension(Application.ExecutablePath) + "_Backup.reg");
+                string fileName = string.Format("{0}_{1}_Backup.reg",
+                    Path.GetFileNameWithoutExtension(Application.ExecutablePath),
+                    Environment.UserName);
 
-                mRegistryManager.ExportKey(mVSTARegistryKey, savePath);
+                SaveFileDialog saveFile = new SaveFileDialog();
+                saveFile.Filter = "reg files (*.reg)|*.reg|All files (*.*)|*.*";
+                saveFile.FilterIndex = 1;
+                saveFile.RestoreDirectory = true;
+                saveFile.InitialDirectory = Path.GetDirectoryName(Application.ExecutablePath);
+                saveFile.FileName = fileName;
 
-                btnRegistryDelete.Enabled = true;
+                if (saveFile.ShowDialog() == DialogResult.OK)
+                {
+                    string savePath = saveFile.FileName;
 
-                lblStatus.Text = string.Format("Backed up registry to '{0}'", savePath);
+                    mRegistryManager.ExportKey(mVSTARegistryKey, savePath);
 
-                System.Diagnostics.Process.Start(Path.GetDirectoryName(Application.ExecutablePath));
+                    btnRegistryDelete.Enabled = true;
+
+                    lblStatus.Text = string.Format("Backed up registry to '{0}'", savePath);
+
+                    System.Diagnostics.Process.Start(Path.GetDirectoryName(Application.ExecutablePath));
+                }
             }
             catch (Exception er)
             {
