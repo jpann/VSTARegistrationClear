@@ -23,6 +23,7 @@ namespace VSTARegistrationClear
         private ILogger mLogger;
         private string mVSTOFileUri;
         private string mVSTAValueName;
+        private bool mContainsSearch = false;
 
         public Main()
         {
@@ -62,6 +63,7 @@ namespace VSTARegistrationClear
             mDebug = Properties.Settings.Default.Debug;
             mVSTARegistryKey = Properties.Settings.Default.VSTARegistryKey;
             mVSTAValueName = Properties.Settings.Default.VSTAValueName;
+            mContainsSearch = Properties.Settings.Default.ContainsSearching;
 
             if (string.IsNullOrEmpty(mVSTARegistryKey))
                 mVSTARegistryKey = cDefaultVSTARegistryKey;
@@ -198,7 +200,12 @@ namespace VSTARegistrationClear
         {
             try
             {
-                RegistryKeyData[] keys = mRegistryManager.GetSubKeys(mVSTARegistryKey, mVSTAValueName, mVSTOFileUri);
+                string fileName = mVSTOFileUri;
+                
+                if (mContainsSearch)
+                    fileName = Path.GetFileName(mVSTOFileUri);
+
+                RegistryKeyData[] keys = mRegistryManager.GetSubKeys(mVSTARegistryKey, mVSTAValueName, fileName, mContainsSearch);
 
                 if (keys.Any())
                 {

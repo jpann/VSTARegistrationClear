@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using Microsoft.Win32;
 using Ninject.Extensions.Logging;
@@ -10,7 +11,6 @@ namespace VSTARegistrationClear.Managers
     public class RegistryManager : IRegistryManager
     {
         private readonly ILogger mLogger;
-
         public RegistryManager(ILogger logger)
         {
             if (logger == null)
@@ -136,7 +136,7 @@ namespace VSTARegistrationClear.Managers
             }
         }
 
-        public RegistryKeyData[] GetSubKeys(string key, string name, string value)
+        public RegistryKeyData[] GetSubKeys(string key, string name, string value, bool containsSearch = false)
         {
             if (string.IsNullOrEmpty(key))
                 throw new ArgumentNullException("key");
@@ -151,6 +151,8 @@ namespace VSTARegistrationClear.Managers
 
             string sHive = key.Substring(0, key.IndexOf('\\'));
             string sKey = key.Substring(key.IndexOf('\\') + 1);
+
+            string valueLower = value.ToLower(); // In lowercase, only used for comparing
 
             mLogger.Info("Checking key '{0}' for subkeys that contain the value '{1}' for '{2}'...", key, value, name);
 
@@ -217,20 +219,32 @@ namespace VSTARegistrationClear.Managers
                                     mLogger.Info("Found value using name '{0}' in key '{1}'.", name, sSubKeyPath);
 
                                     string keyValue = oSubKey.GetValue(name).ToString();
+                                    string keyValueSearchLower = keyValue.ToLower(); // In lowercase, only used for comparing
 
-                                    if (!keyValue.StartsWith("file://"))
+                                    if (!keyValueSearchLower.StartsWith("file://"))
                                     {
-                                        mLogger.Warn("Incorrect url value '{0}' for '{1}' in key '{2}'", keyValue, name, sSubKeyPath);
+                                        mLogger.Warn("Incorrect url value '{0}' for '{1}' in key '{2}'", keyValueSearchLower, name, sSubKeyPath);
                                         continue;
                                     }
 
                                     // Make sure the keyValue Url has the correct escape characters (e.g. spaces to %20)
-                                    var uri = new System.Uri(keyValue);
-                                    keyValue = uri.AbsoluteUri;
+                                    var uri = new System.Uri(keyValueSearchLower);
+                                    keyValueSearchLower = uri.AbsoluteUri;
 
-                                    if (string.Equals(keyValue, value))
+                                    bool searchSuccess = false;
+
+                                    if (!containsSearch)
                                     {
-                                        mLogger.Info("Found value '{0}' for '{1}' in key '{2}'!", keyValue, name, sSubKeyPath);
+                                        searchSuccess = string.Equals(keyValueSearchLower, valueLower);
+                                    }
+                                    else
+                                    {
+                                        searchSuccess = keyValue.Contains(valueLower);
+                                    }
+
+                                    if (searchSuccess)
+                                    {
+                                        mLogger.Info("Found value '{0}' for '{1}' in key '{2}'!", keyValueSearchLower, name, sSubKeyPath);
 
                                         RegistryKeyData keydata = new RegistryKeyData()
                                         {
@@ -243,7 +257,7 @@ namespace VSTARegistrationClear.Managers
                                     }
                                     else
                                     {
-                                        mLogger.Debug("Found incorrect value of '{0}' for '{1}' in key '{2}'.", keyValue, name, sSubKeyPath);
+                                        mLogger.Debug("Found incorrect value of '{0}' for '{1}' in key '{2}'.", keyValueSearchLower, name, sSubKeyPath);
                                     }
                                 }
                                 else

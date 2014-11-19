@@ -58,5 +58,17 @@ namespace VSTARegistrationClear.Properties {
                 this["VSTAValueName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ContainsSearching {
+            get {
+                return ((bool)(this["ContainsSearching"]));
+            }
+            set {
+                this["ContainsSearching"] = value;
+            }
+        }
     }
 }

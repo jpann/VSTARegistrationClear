@@ -11,5 +11,8 @@
     <Setting Name="VSTAValueName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Url</Value>
     </Setting>
+    <Setting Name="ContainsSearching" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
