@@ -116,21 +116,6 @@ namespace VSTARegistrationClear
                         Environment.Exit(-1);
                     }
                 }
-
-                if (!WindowsUtils.IsUserAnAdmin())
-                {
-                    string sMsg = "You must run this program as an administrator.";
-
-                    MessageBox.Show(
-                       sMsg,
-                       "Administrator Error",
-                       MessageBoxButtons.OK,
-                       MessageBoxIcon.Error);
-
-                    mLog.Fatal(sMsg);
-
-                    Environment.Exit(-1);
-                }
 #endif
 
                 DialogResult warning = MessageBox.Show("This utility is meant to be used to clear VSTA registration corruption when a VSTO application does not appear to be installed but appears in the VSTA registration, causing '*InstalledException' errors during ClickOnce deployment.\n\r\n\rPrior to running this, make sure that the VSTO application does not appear to be installed.", 
