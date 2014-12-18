@@ -239,7 +239,7 @@ namespace VSTARegistrationClear.Managers
                                     }
                                     else
                                     {
-                                        searchSuccess = keyValue.Contains(valueLower);
+                                        searchSuccess = keyValueSearchLower.Contains(valueLower);
                                     }
 
                                     if (searchSuccess)
