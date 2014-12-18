@@ -242,11 +242,11 @@ namespace VSTARegistrationClear
         {
             try
             {
-                if (lstRegistry.Items.Count <= 0)
+                if (lstRegistry.CheckedItems.Count <= 0)
                     return;
 
                 int deleteCount = 0;
-                foreach (ListViewItem item in lstRegistry.Items)
+                foreach (ListViewItem item in lstRegistry.CheckedItems)
                 {
                     if (item.Checked)
                     {
